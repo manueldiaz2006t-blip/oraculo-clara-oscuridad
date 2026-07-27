@@ -6,12 +6,17 @@ app = Flask(__name__)
 
 # DICCIONARIO DE IMÁGENES (La tinta visual)
 IMAGENES_ARCANOS = {
-    0: "https://placehold.co/180x300/0a0a0a/d4af37?text=0+El+Loco&font=playfair-display",
-    1: "https://placehold.co/180x300/0a0a0a/d4af37?text=1+El+Mago&font=playfair-display",
-    2: "https://placehold.co/180x300/0a0a0a/d4af37?text=2+Sacerdotisa&font=playfair-display",
-    3: "https://placehold.co/180x300/0a0a0a/d4af37?text=3+Emperatriz&font=playfair-display",
-    4: "https://placehold.co/180x300/0a0a0a/d4af37?text=4+Emperador&font=playfair-display",
-    5: "https://placehold.co/180x300/0a0a0a/d4af37?text=5+Hierofante&font=playfair-display"
+    0: "https://abrepuertasespiritual.cl/cartas/0.png",
+    1: "https://abrepuertasespiritual.cl/cartas/1.png",
+    2: "https://abrepuertasespiritual.cl/cartas/2.png",
+    3: "https://abrepuertasespiritual.cl/cartas/3.png",
+    4: "https://abrepuertasespiritual.cl/cartas/4.png",
+    5: "https://abrepuertasespiritual.cl/cartas/5.png",
+    6: "https://abrepuertasespiritual.cl/cartas/6.png",
+    7: "https://abrepuertasespiritual.cl/cartas/7.png",
+    8: "https://abrepuertasespiritual.cl/cartas/8.png",
+    9: "https://abrepuertasespiritual.cl/cartas/9.png",
+    10: "https://abrepuertasespiritual.cl/cartas/10.png"
 }
 
 PLANTILLA_HTML = """
@@ -258,7 +263,12 @@ def inicializar_base_de_datos():
         (2, 'La Sacerdotisa', 'Es la energía de Chokmah recibida en Binah. Es la luna que no tiene luz propia, sino que refleja la luz del sol. Representa el subconsciente universal.', 'El bloqueo emocional. El secreto tóxico. Es cuando la intuición se convierte en paranoia, o cuando te refugias tanto en tu mundo interior que te desconectas.', 'Artifica el silencio: Hoy, no reacciones inmediatamente ante ninguna provocación. Retírate a un lugar oscuro o cierra los ojos por 5 minutos antes de responder.'),
         (3, 'La Emperatriz', 'Es la fuerza de Binah materializándose. Es Venus. Es el útero cósmico que toma la semilla abstracta y la convierte en naturaleza, abundancia y sentimiento.', 'El apego material y el smothering (asfixia emocional). El exceso de protección que sofoca al otro. La creencia de que tu valor depende de cuánto posees.', 'Artifica la fertilidad: Regala algo tuyo (tiempo, comida, un objeto bello) a alguien que no lo espera. No lo hagas para recibir gracias; hazlo para ejercitar el músculo de la abundancia.'),
         (4, 'El Emperador', 'Es la energía de Chesed tomando estructura. Es Aries. Si la Emperatriz es la naturaleza salvaje, el Emperador es el agricultor que pone cercos y canales.', 'El tirano. El controlador rígido que no soporta la espontaneidad. El miedo obsesivo a perder el control que te lleva a micro-gestionar cada detalle.', 'Artifica la estructura: Elige una zona de tu vida que es puro caos y ponle UNA regla firme hoy. No lo hagas con ira, hazlo con el amor de un arquitecto.'),
-        (5, 'El Hierofante', 'Es la energía de Geburah canalizada a través de la tradición. Es Tauro. Es el puente entre la humanidad y lo divino a través de la estructura del conocimiento.', 'El dogma ciego. El fanatismo religioso o ideológico. Seguir las reglas de otros sin cuestionarlas, entregando tu libre albedrío.', 'Artifica la duda santa: Cuestiona una creencia que tienes desde la infancia. No para destruirla, sino para ver si realmente te sirve a TI hoy.')
+        (5, 'El Hierofante', 'Es la energía de Geburah canalizada a través de la tradición. Es Tauro. Es el puente entre la humanidad y lo divino a través de la estructura del conocimiento.', 'El dogma ciego. El fanatismo religioso o ideológico. Seguir las reglas de otros sin cuestionarlas, entregando tu libre albedrío.', 'Artifica la duda santa: Cuestiona una creencia que tienes desde la infancia. No para destruirla, sino para ver si realmente te sirve a TI hoy.'),
+        (6, 'Los Enamorados', 'Es la fuerza central de Tiferet (La Belleza). Representa la fricción y la inevitable alquimia que ocurre cuando dos polaridades se encuentran. Es el punto de equilibrio donde el elegido debe elegir.', 'La indecisión paralizante. El triángulo amoroso o la división interna. Entregar tu poder de decisión a los demás por miedo a equivocarte o desagradar.', 'Artifica la elección: Hoy, toma una decisión que has estado postergando. No elijas la opción "perfecta", elige la que alinee tu mente (Mago) con tu intuición (Sacerdotisa).'),
+        (7, 'El Carro', 'Es la energía de Netzaj (La Victoria). Es la fuerza de voluntad pura en movimiento. Es el carro de guerra que penetra el caos para imponer el orden y la victoria del espíritu sobre la materia.', 'La agresión desmedida y el autoritarismo. Forzar situaciones cuando el timing no es correcto. Avanzar por pura fuerza bruta aplastando a los demás en el camino.', 'Artifica el avance: Toma acción directa sobre algo que has estado postergando. Pero hazlo con el control del Emperador, no con la furia del tirano.'),
+        (8, 'La Justicia', 'Es el equilibrio exacto entre las fuerzas de Netzaj y Hod. Es la ley de causa y efecto (Karma) manifestada. Es la espada de la verdad que corta la ilusión de la separación.', 'El legalismo frío y la falta de compasión. Juzgar a otros con dureza para proyectar tus propias sombras. La mentalidad de víctima que culpa al mundo de sus fracasos.', 'Artifica el equilibrio: Audita tu vida hoy. Perdona una deuda literal o emocional. Suelta la necesidad de tener la razón y equilibra las balanzas de tu propio karma.'),
+        (9, 'El Ermitaño', 'Es la energía de Yesod (El Fundamento) llevada hacia adentro. Es la luz interna que no necesita el sol externo. Es la sabiduría que se obtiene al apartarse del ruido del mundo para escuchar la propia voz.', 'El aislamiento por miedo o misantropía. La arrogancia espiritual de creerse "iluminado" y superior a los que viven en el mundo material.', 'Artifica el retiro: Apaga tu teléfono durante 30 minutos. Siéntate en silencio absoluto sin distracciones. No medites, solo escucha qué voz surge de tu propia oscuridad.'),
+        (10, 'La Rueda de la Fortuna', 'Es la energy de Malkuth (El Reino) interactuando con el eje central del universo. Representa el ciclo eterno: lo que sube debe bajar. Es la ilusión de la estabilidad en un mundo de constante flujo.', 'La resistencia al cambio. Aferrarse desesperadamente al pico del éxito o deprimirse profundamente en el valle del fracaso, olvidando que la rueda siempre gira.', 'Artifica la fluidez: Acepta un cambio de planes repentino hoy sin quejarte. Deja de intentar controlar el giro de la rueda y fluye con ella como el agua.')
         ON CONFLICT (numero) DO NOTHING;
         """)
         conn.commit()
