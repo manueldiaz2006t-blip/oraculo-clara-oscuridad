@@ -254,7 +254,7 @@ def inicializar_base_de_datos():
     cur.execute("SELECT COUNT(*) FROM arcanos;")
     cantidad = cur.fetchone()[0]
     
-    # Si está vacía, inserta los 6 Arcanos
+    # Si está vacía, inserta los 11 Arcanos
     if cantidad == 0:
         cur.execute("""
         INSERT INTO arcanos (numero, nombre, mecanismo_cosmico, sombra_klipa, tikkun_accion) VALUES 
@@ -264,17 +264,18 @@ def inicializar_base_de_datos():
         (3, 'La Emperatriz', 'Es la fuerza de Binah materializándose. Es Venus. Es el útero cósmico que toma la semilla abstracta y la convierte en naturaleza, abundancia y sentimiento.', 'El apego material y el smothering (asfixia emocional). El exceso de protección que sofoca al otro. La creencia de que tu valor depende de cuánto posees.', 'Artifica la fertilidad: Regala algo tuyo (tiempo, comida, un objeto bello) a alguien que no lo espera. No lo hagas para recibir gracias; hazlo para ejercitar el músculo de la abundancia.'),
         (4, 'El Emperador', 'Es la energía de Chesed tomando estructura. Es Aries. Si la Emperatriz es la naturaleza salvaje, el Emperador es el agricultor que pone cercos y canales.', 'El tirano. El controlador rígido que no soporta la espontaneidad. El miedo obsesivo a perder el control que te lleva a micro-gestionar cada detalle.', 'Artifica la estructura: Elige una zona de tu vida que es puro caos y ponle UNA regla firme hoy. No lo hagas con ira, hazlo con el amor de un arquitecto.'),
         (5, 'El Hierofante', 'Es la energía de Geburah canalizada a través de la tradición. Es Tauro. Es el puente entre la humanidad y lo divino a través de la estructura del conocimiento.', 'El dogma ciego. El fanatismo religioso o ideológico. Seguir las reglas de otros sin cuestionarlas, entregando tu libre albedrío.', 'Artifica la duda santa: Cuestiona una creencia que tienes desde la infancia. No para destruirla, sino para ver si realmente te sirve a TI hoy.'),
-        (6, 'Los Enamorados', 'Es la fuerza central de Tiferet (La Belleza). Representa la fricción y la inevitable alquimia que ocurre cuando dos polaridades se encuentran. Es el punto de equilibrio donde el elegido debe elegir.', 'La indecisión paralizante. El triángulo amoroso o la división interna. Entregar tu poder de decisión a los demás por miedo a equivocarte o desagradar.', 'Artifica la elección: Hoy, toma una decisión que has estado postergando. No elijas la opción "perfecta", elige la que alinee tu mente (Mago) con tu intuición (Sacerdotisa).'),
-        (7, 'El Carro', 'Es la energía de Netzaj (La Victoria). Es la fuerza de voluntad pura en movimiento. Es el carro de guerra que penetra el caos para imponer el orden y la victoria del espíritu sobre la materia.', 'La agresión desmedida y el autoritarismo. Forzar situaciones cuando el timing no es correcto. Avanzar por pura fuerza bruta aplastando a los demás en el camino.', 'Artifica el avance: Toma acción directa sobre algo que has estado postergando. Pero hazlo con el control del Emperador, no con la furia del tirano.'),
-        (8, 'La Justicia', 'Es el equilibrio exacto entre las fuerzas de Netzaj y Hod. Es la ley de causa y efecto (Karma) manifestada. Es la espada de la verdad que corta la ilusión de la separación.', 'El legalismo frío y la falta de compasión. Juzgar a otros con dureza para proyectar tus propias sombras. La mentalidad de víctima que culpa al mundo de sus fracasos.', 'Artifica el equilibrio: Audita tu vida hoy. Perdona una deuda literal o emocional. Suelta la necesidad de tener la razón y equilibra las balanzas de tu propio karma.'),
-        (9, 'El Ermitaño', 'Es la energía de Yesod (El Fundamento) llevada hacia adentro. Es la luz interna que no necesita el sol externo. Es la sabiduría que se obtiene al apartarse del ruido del mundo para escuchar la propia voz.', 'El aislamiento por miedo o misantropía. La arrogancia espiritual de creerse "iluminado" y superior a los que viven en el mundo material.', 'Artifica el retiro: Apaga tu teléfono durante 30 minutos. Siéntate en silencio absoluto sin distracciones. No medites, solo escucha qué voz surge de tu propia oscuridad.'),
-        (10, 'La Rueda de la Fortuna', 'Es la energy de Malkuth (El Reino) interactuando con el eje central del universo. Representa el ciclo eterno: lo que sube debe bajar. Es la ilusión de la estabilidad en un mundo de constante flujo.', 'La resistencia al cambio. Aferrarse desesperadamente al pico del éxito o deprimirse profundamente en el valle del fracaso, olvidando que la rueda siempre gira.', 'Artifica la fluidez: Acepta un cambio de planes repentino hoy sin quejarte. Deja de intentar controlar el giro de la rueda y fluye con ella como el agua.')
+        (6, 'Los Enamorados', 'Es la fuerza central de Tiferet (La Belleza). Representa la fricción y la inevitable alquimia que ocurre cuando dos polaridades se encuentran.', 'La indecisión paralizante. El triángulo amoroso o la división interna. Entregar tu poder de decisión a los demás por miedo a equivocarte.', 'Artifica la elección: Hoy, toma una decisión que has estado postergando. No elijas la opción perfecta, elige la que alinee tu mente con tu intuición.'),
+        (7, 'El Carro', 'Es la energía de Netzaj (La Victoria). Es la fuerza de voluntad pura en movimiento. Es el carro de guerra que penetra el caos para imponer el orden del espíritu.', 'La agresión desmedida y el autoritarismo. Forzar situaciones cuando el timing no es correcto. Avanzar por pura fuerza bruta aplastando a los demás.', 'Artifica el avance: Toma acción directa sobre algo que has estado postergando. Pero hazlo con el control del Emperador, no con la furia del tirano.'),
+        (8, 'La Justicia', 'Es el equilibrio exacto entre las fuerzas de Netzaj y Hod. Es la ley de causa y efecto (Karma) manifestada. Es la espada de la verdad que corta la ilusión.', 'El legalismo frío y la falta de compasión. Juzgar a otros con dureza para proyectar tus propias sombras.', 'Artifica el equilibrio: Perdona una deuda literal o emocional hoy. Suelta la necesidad de tener la razón.'),
+        (9, 'El Ermitaño', 'Es la energía de Yesod (El Fundamento) llevada hacia adentro. Es la luz interna que no necesita el sol externo. Es la sabiduría del silencio.', 'El aislamiento por miedo o misantropía. La arrogancia espiritual de creerse iluminado y superior al mundo material.', 'Artifica el retiro: Apaga tu teléfono durante 30 minutos. Siéntate en silencio absoluto. No medites, solo escucha la voz de tu oscuridad.'),
+        (10, 'La Rueda de la Fortuna', 'Es la energy de Malkuth (El Reino) interactuando con el eje central del universo. Representa el ciclo eterno: lo que sube debe bajar.', 'La resistencia al cambio. Aferrarse al pico del éxito o deprimirse en el valle del fracaso, olvidando que la rueda siempre gira.', 'Artifica la fluidez: Acepta un cambio de planes repentino hoy sin quejarte. Fluye con la rueda como el agua.')
         ON CONFLICT (numero) DO NOTHING;
         """)
         conn.commit()
     
     cur.close()
     conn.close()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def pagina_principal():
@@ -303,7 +304,7 @@ def revelar_arcano():
             # Buscamos la imagen en nuestro diccionario
             imagen_url = IMAGENES_ARCANOS.get(int(numero), "")
         else:
-            error = "Esa tinta aún no ha sido mezclada en la oscuridad. Elige un número del 0 al 5."
+            error = "Esa tinta aún no ha sido mezclada en la oscuridad. Elige un número del 0 al 15."
 
     except Exception as e:
         error = f"Error en la matrix: {e}"
