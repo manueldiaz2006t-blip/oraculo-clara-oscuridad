@@ -16,7 +16,12 @@ IMAGENES_ARCANOS = {
     7: "https://abrepuertasespiritual.cl/cartas/7.png",
     8: "https://abrepuertasespiritual.cl/cartas/8.png",
     9: "https://abrepuertasespiritual.cl/cartas/9.png",
-    10: "https://abrepuertasespiritual.cl/cartas/10.png"
+    10: "https://abrepuertasespiritual.cl/cartas/10.png",
+    11: "https://abrepuertasespiritual.cl/cartas/11.png",
+    12: "https://abrepuertasespiritual.cl/cartas/12.png",
+    13: "https://abrepuertasespiritual.cl/cartas/13.png",
+    14: "https://abrepuertasespiritual.cl/cartas/14.png",
+    15: "https://abrepuertasespiritual.cl/cartas/15.png"
 }
 
 PLANTILLA_HTML = """
@@ -188,7 +193,7 @@ PLANTILLA_HTML = """
     <div class="contenedor">
         <form action="/revelar" method="POST">
             <label style="color: #555; font-size: 12px; display: block; margin-bottom: 10px;">ELIGE LA TINTA (0 AL 15)</label>
-            <input type="number" name="numero_arcano" class="formulario-input" min="0" max="15" required autofocus>
+            <input type="number" name="numero_arcano" class="formulario-input" min="0" max="5" required autofocus>
             <br>
             <button type="submit" id="boton-form">ILUMINAR MENTE</button>
         </form>
@@ -250,32 +255,29 @@ def inicializar_base_de_datos():
         );
     """)
     
-    # Verifica si ya tiene datos
-    cur.execute("SELECT COUNT(*) FROM arcanos;")
-    cantidad = cur.fetchone()[0]
-    
-    # Si está vacía, inserta los 11 Arcanos
-    if cantidad == 0:
-        cur.execute("""
-        INSERT INTO arcanos (numero, nombre, mecanismo_cosmico, sombra_klipa, tikkun_accion) VALUES 
-        (0, 'El Loco', 'Representa la fuerza de vida pura antes de chocar con el espacio vacío. Es el impulso cuántico que aún no ha decidido qué partícula ser.', 'En el ser humano, la distorsión es el escapismo. Incapacidad de comprometerse con la forma por miedo a fracasar.', 'Hoy, toma un riesgo calculado que tu lógica rechaza. Enséñale a tu alma que el vacío no te traga.'),
-        (1, 'El Mago', 'Es el puente entre el infinito (Kether) y la materia (Malkuth). Representa la capacidad del universo de concentrar todas las fuerzas dispersas en un solo punto de voluntad.', 'El manipulador. El charlatán que usa su inteligencia y su capacidad de comunicación para engañar, robar energía o crear ilusiones.', 'Artifica el enfoque: Hoy, elige UNA sola intención. Toma un objeto físico y concéntrate en él durante 2 minutos visualizando que a través de él fluye la luz de tu Sefirá.'),
-        (2, 'La Sacerdotisa', 'Es la energía de Chokmah recibida en Binah. Es la luna que no tiene luz propia, sino que refleja la luz del sol. Representa el subconsciente universal.', 'El bloqueo emocional. El secreto tóxico. Es cuando la intuición se convierte en paranoia, o cuando te refugias tanto en tu mundo interior que te desconectas.', 'Artifica el silencio: Hoy, no reacciones inmediatamente ante ninguna provocación. Retírate a un lugar oscuro o cierra los ojos por 5 minutos antes de responder.'),
-        (3, 'La Emperatriz', 'Es la fuerza de Binah materializándose. Es Venus. Es el útero cósmico que toma la semilla abstracta y la convierte en naturaleza, abundancia y sentimiento.', 'El apego material y el smothering (asfixia emocional). El exceso de protección que sofoca al otro. La creencia de que tu valor depende de cuánto posees.', 'Artifica la fertilidad: Regala algo tuyo (tiempo, comida, un objeto bello) a alguien que no lo espera. No lo hagas para recibir gracias; hazlo para ejercitar el músculo de la abundancia.'),
-        (4, 'El Emperador', 'Es la energía de Chesed tomando estructura. Es Aries. Si la Emperatriz es la naturaleza salvaje, el Emperador es el agricultor que pone cercos y canales.', 'El tirano. El controlador rígido que no soporta la espontaneidad. El miedo obsesivo a perder el control que te lleva a micro-gestionar cada detalle.', 'Artifica la estructura: Elige una zona de tu vida que es puro caos y ponle UNA regla firme hoy. No lo hagas con ira, hazlo con el amor de un arquitecto.'),
-        (5, 'El Hierofante', 'Es la energía de Geburah canalizada a través de la tradición. Es Tauro. Es el puente entre la humanidad y lo divino a través de la estructura del conocimiento.', 'El dogma ciego. El fanatismo religioso o ideológico. Seguir las reglas de otros sin cuestionarlas, entregando tu libre albedrío.', 'Artifica la duda santa: Cuestiona una creencia que tienes desde la infancia. No para destruirla, sino para ver si realmente te sirve a TI hoy.'),
-        (6, 'Los Enamorados', 'Es la fuerza central de Tiferet (La Belleza). Representa la fricción y la inevitable alquimia que ocurre cuando dos polaridades se encuentran.', 'La indecisión paralizante. El triángulo amoroso o la división interna. Entregar tu poder de decisión a los demás por miedo a equivocarte.', 'Artifica la elección: Hoy, toma una decisión que has estado postergando. No elijas la opción perfecta, elige la que alinee tu mente con tu intuición.'),
-        (7, 'El Carro', 'Es la energía de Netzaj (La Victoria). Es la fuerza de voluntad pura en movimiento. Es el carro de guerra que penetra el caos para imponer el orden del espíritu.', 'La agresión desmedida y el autoritarismo. Forzar situaciones cuando el timing no es correcto. Avanzar por pura fuerza bruta aplastando a los demás.', 'Artifica el avance: Toma acción directa sobre algo que has estado postergando. Pero hazlo con el control del Emperador, no con la furia del tirano.'),
-        (8, 'La Justicia', 'Es el equilibrio exacto entre las fuerzas de Netzaj y Hod. Es la ley de causa y efecto (Karma) manifestada. Es la espada de la verdad que corta la ilusión.', 'El legalismo frío y la falta de compasión. Juzgar a otros con dureza para proyectar tus propias sombras.', 'Artifica el equilibrio: Perdona una deuda literal o emocional hoy. Suelta la necesidad de tener la razón.'),
-        (9, 'El Ermitaño', 'Es la energía de Yesod (El Fundamento) llevada hacia adentro. Es la luz interna que no necesita el sol externo. Es la sabiduría del silencio.', 'El aislamiento por miedo o misantropía. La arrogancia espiritual de creerse iluminado y superior al mundo material.', 'Artifica el retiro: Apaga tu teléfono durante 30 minutos. Siéntate en silencio absoluto. No medites, solo escucha la voz de tu oscuridad.'),
-        (10, 'La Rueda de la Fortuna', 'Es la energy de Malkuth (El Reino) interactuando con el eje central del universo. Representa el ciclo eterno: lo que sube debe bajar.', 'La resistencia al cambio. Aferrarse al pico del éxito o deprimirse en el valle del fracaso, olvidando que la rueda siempre gira.', 'Artifica la fluidez: Acepta un cambio de planes repentino hoy sin quejarte. Fluye con la rueda como el agua.')
-        ON CONFLICT (numero) DO NOTHING;
-        """)
-        conn.commit()
+    # Intentamos insertar todos. Si ya existen, ON CONFLICT los ignora sin error
+    cur.execute("""
+    INSERT INTO arcanos (numero, nombre, mecanismo_cosmico, sombra_klipa, tikkun_accion) VALUES 
+    (0, 'El Loco', 'Representa la fuerza de vida pura antes de chocar con el espacio vacío. Es el impulso cuántico que aún no ha decidido qué partícula ser.', 'En el ser humano, la distorsión es el escapismo. Incapacidad de comprometerse con la forma por miedo a fracasar.', 'Hoy, toma un riesgo calculado que tu lógica rechaza. Enséñale a tu alma que el vacío no te traga.'),
+    (1, 'El Mago', 'Es el puente entre el infinito (Kether) y la materia (Malkuth). Representa la capacidad del universo de concentrar todas las fuerzas dispersas en un solo punto de voluntad.', 'El manipulador. El charlatán que usa su inteligencia y su capacidad de comunicación para engañar, robar energía o crear ilusiones.', 'Artifica el enfoque: Hoy, elige UNA sola intención. Toma un objeto físico y concéntrate en él durante 2 minutos visualizando que a través de él fluye la luz de tu Sefirá.'),
+    (2, 'La Sacerdotisa', 'Es la energía de Chokmah recibida en Binah. Es la luna que no tiene luz propia, sino que refleja la luz del sol. Representa el subconsciente universal.', 'El bloqueo emocional. El secreto tóxico. Es cuando la intuición se convierte en paranoia, o cuando te refugias tanto en tu mundo interior que te desconectas.', 'Artifica el silencio: Hoy, no reacciones inmediatamente ante ninguna provocación. Retírate a un lugar oscuro o cierra los ojos por 5 minutos antes de responder.'),
+    (3, 'La Emperatriz', 'Es la fuerza de Binah materializándose. Es Venus. Es el útero cósmico que toma la semilla abstracta y la convierte en naturaleza, abundancia y sentimiento.', 'El apego material y el smothering (asfixia emocional). El exceso de protección que sofoca al otro. La creencia de que tu valor depende de cuánto posees.', 'Artifica la fertilidad: Regala algo tuyo (tiempo, comida, un objeto bello) a alguien que no lo espera. No lo hagas para recibir gracias; hazlo para ejercitar el músculo de la abundancia.'),
+    (4, 'El Emperador', 'Es la energía de Chesed tomando estructura. Es Aries. Si la Emperatriz es la naturaleza salvaje, el Emperador es el agricultor que pone cercos y canales.', 'El tirano. El controlador rígido que no soporta la espontaneidad. El miedo obsesivo a perder el control que te lleva a micro-gestionar cada detalle.', 'Artifica la estructura: Elige una zona de tu vida que es puro caos y ponle UNA regla firme hoy. No lo hagas con ira, hazlo con el amor de un arquitecto.'),
+    (5, 'El Hierofante', 'Es la energía de Geburah canalizada a través de la tradición. Es Tauro. Es el puente entre la humanidad y lo divino a través de la estructura del conocimiento.', 'El dogma ciego. El fanatismo religioso o ideológico. Seguir las reglas de otros sin cuestionarlas, entregando tu libre albedrío.', 'Artifica la duda santa: Cuestiona una creencia que tienes desde la infancia. No para destruirla, sino para ver si realmente te sirve a TI hoy.'),
+    (6, 'Los Enamorados', 'Es la fuerza central de Tiferet (La Belleza). Representa la fricción y la inevitable alquimia que ocurre cuando dos polaridades se encuentran.', 'La indecisión paralizante. El triángulo amoroso o la división interna. Entregar tu poder de decisión a los demás por miedo a equivocarte.', 'Artifica la elección: Hoy, toma una decisión que has estado postergando. No elijas la opción perfecta, elige la que alinee tu mente con tu intuición.'),
+    (7, 'El Carro', 'Es la energía de Netzaj (La Victoria). Es la fuerza de voluntad pura en movimiento. Es el carro de guerra que penetra el caos para imponer el orden del espíritu.', 'La agresión desmedida y el autoritarismo. Forzar situaciones cuando el timing no es correcto. Avanzar por pura fuerza bruta aplastando a los demás.', 'Artifica el avance: Toma acción directa sobre algo que has estado postergando. Pero hazlo con el control del Emperador, no con la furia del tirano.'),
+    (8, 'La Justicia', 'Es el equilibrio exacto entre las fuerzas de Netzaj y Hod. Es la ley de causa y efecto (Karma) manifestada. Es la espada de la verdad que corta la ilusión.', 'El legalismo frío y la falta de compasión. Juzgar a otros con dureza para proyectar tus propias sombras.', 'Artifica el equilibrio: Perdona una deuda literal o emocional hoy. Suelta la necesidad de tener la razón.'),
+    (9, 'El Ermitaño', 'Es la energía de Yesod (El Fundamento) llevada hacia adentro. Es la luz interna que no necesita el sol externo. Es la sabiduría del silencio.', 'El aislamiento por miedo o misantropía. La arrogancia espiritual de creerse iluminado y superior al mundo material.', 'Artifica el retiro: Apaga tu teléfono durante 30 minutos. Siéntate en silencio absoluto. No medites, solo escucha la voz de tu oscuridad.'),
+    (10, 'La Rueda de la Fortuna', 'Es la energy de Malkuth (El Reino) interactuando con el eje central del universo. Representa el ciclo eterno: lo que sube debe bajar.', 'La resistencia al cambio. Aferrarse al pico del éxito o deprimirse en el valle del fracaso, olvidando que la rueda siempre gira.', 'Artifica la fluidez: Acepta un cambio de planes repentino hoy sin quejarte. Fluye con la rueda como el agua.')
+    ON CONFLICT (numero) DO NOTHING;
+    """)
+    conn.commit()
     
     cur.close()
     conn.close()
 
+# Ejecutamos la creación de la base de datos al iniciar
+inicializar_base_de_datos()
 
 @app.route('/', methods=['GET', 'POST'])
 def pagina_principal():
@@ -301,7 +303,6 @@ def revelar_arcano():
             mecanismo = resultado[1]
             sombra = resultado[2]
             tikkun = resultado[3]
-            # Buscamos la imagen en nuestro diccionario
             imagen_url = IMAGENES_ARCANOS.get(int(numero), "")
         else:
             error = "Esa tinta aún no ha sido mezclada en la oscuridad. Elige un número del 0 al 15."
@@ -310,9 +311,6 @@ def revelar_arcano():
         error = f"Error en la matrix: {e}"
 
     return render_template_string(PLANTILLA_HTML, error=error, nombre_arcano=nombre_arcano, mecanismo=mecanismo, sombra=sombra, tikkun=tikkun, imagen_url=imagen_url)
-
-# Ejecutamos la creación de la base de datos al iniciar
-inicializar_base_de_datos()
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=False)
