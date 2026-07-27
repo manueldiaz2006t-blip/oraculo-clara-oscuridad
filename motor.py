@@ -223,12 +223,48 @@ PLANTILLA_HTML = """
 </html>
 """
 
-# FUNCIÓN PARA CONECTAR A LA BASE DE DATOS (LOCAL O EN LA NUBE)
+# FUNCIÓN PARA CONECTAR A LA BASE DE DATOS
 def get_db_connection():
-    # Render.com inyecta la URL de la base de datos en una variable de entorno
-    # Si no existe (o sea, estamos en tu PC), usa tus datos locales
     db_url = os.environ.get("DATABASE_URL", "dbname='db_clara_oscuridad' user='postgres' password='12345678' host='localhost' port='5432'")
     return psycopg2.connect(db_url)
+
+# FUNCIÓN MÁGICA: Construye la base de datos si está vacía (Para la nube)
+def inicializar_base_de_datos():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    # Crea la tabla si no existe
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS arcanos (
+            id SERIAL PRIMARY KEY,
+            numero INTEGER UNIQUE,
+            nombre VARCHAR(50),
+            mecanismo_cosmico TEXT,
+            sombra_klipa TEXT,
+            tikkun_accion TEXT
+        );
+    """)
+    
+    # Verifica si ya tiene datos
+    cur.execute("SELECT COUNT(*) FROM arcanos;")
+    cantidad = cur.fetchone()[0]
+    
+    # Si está vacía, inserta los 6 Arcanos
+    if cantidad == 0:
+        cur.execute("""
+        INSERT INTO arcanos (numero, nombre, mecanismo_cosmico, sombra_klipa, tikkun_accion) VALUES 
+        (0, 'El Loco', 'Representa la fuerza de vida pura antes de chocar con el espacio vacío. Es el impulso cuántico que aún no ha decidido qué partícula ser.', 'En el ser humano, la distorsión es el escapismo. Incapacidad de comprometerse con la forma por miedo a fracasar.', 'Hoy, toma un riesgo calculado que tu lógica rechaza. Enséñale a tu alma que el vacío no te traga.'),
+        (1, 'El Mago', 'Es el puente entre el infinito (Kether) y la materia (Malkuth). Representa la capacidad del universo de concentrar todas las fuerzas dispersas en un solo punto de voluntad.', 'El manipulador. El charlatán que usa su inteligencia y su capacidad de comunicación para engañar, robar energía o crear ilusiones.', 'Artifica el enfoque: Hoy, elige UNA sola intención. Toma un objeto físico y concéntrate en él durante 2 minutos visualizando que a través de él fluye la luz de tu Sefirá.'),
+        (2, 'La Sacerdotisa', 'Es la energía de Chokmah recibida en Binah. Es la luna que no tiene luz propia, sino que refleja la luz del sol. Representa el subconsciente universal.', 'El bloqueo emocional. El secreto tóxico. Es cuando la intuición se convierte en paranoia, o cuando te refugias tanto en tu mundo interior que te desconectas.', 'Artifica el silencio: Hoy, no reacciones inmediatamente ante ninguna provocación. Retírate a un lugar oscuro o cierra los ojos por 5 minutos antes de responder.'),
+        (3, 'La Emperatriz', 'Es la fuerza de Binah materializándose. Es Venus. Es el útero cósmico que toma la semilla abstracta y la convierte en naturaleza, abundancia y sentimiento.', 'El apego material y el smothering (asfixia emocional). El exceso de protección que sofoca al otro. La creencia de que tu valor depende de cuánto posees.', 'Artifica la fertilidad: Regala algo tuyo (tiempo, comida, un objeto bello) a alguien que no lo espera. No lo hagas para recibir gracias; hazlo para ejercitar el músculo de la abundancia.'),
+        (4, 'El Emperador', 'Es la energía de Chesed tomando estructura. Es Aries. Si la Emperatriz es la naturaleza salvaje, el Emperador es el agricultor que pone cercos y canales.', 'El tirano. El controlador rígido que no soporta la espontaneidad. El miedo obsesivo a perder el control que te lleva a micro-gestionar cada detalle.', 'Artifica la estructura: Elige una zona de tu vida que es puro caos y ponle UNA regla firme hoy. No lo hagas con ira, hazlo con el amor de un arquitecto.'),
+        (5, 'El Hierofante', 'Es la energía de Geburah canalizada a través de la tradición. Es Tauro. Es el puente entre la humanidad y lo divino a través de la estructura del conocimiento.', 'El dogma ciego. El fanatismo religioso o ideológico. Seguir las reglas de otros sin cuestionarlas, entregando tu libre albedrío.', 'Artifica la duda santa: Cuestiona una creencia que tienes desde la infancia. No para destruirla, sino para ver si realmente te sirve a TI hoy.')
+        ON CONFLICT (numero) DO NOTHING;
+        """)
+        conn.commit()
+    
+    cur.close()
+    conn.close()
 
 @app.route('/', methods=['GET', 'POST'])
 def pagina_principal():
@@ -263,6 +299,9 @@ def revelar_arcano():
         error = f"Error en la matrix: {e}"
 
     return render_template_string(PLANTILLA_HTML, error=error, nombre_arcano=nombre_arcano, mecanismo=mecanismo, sombra=sombra, tikkun=tikkun, imagen_url=imagen_url)
+
+# Ejecutamos la creación de la base de datos al iniciar
+inicializar_base_de_datos()
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=False)
