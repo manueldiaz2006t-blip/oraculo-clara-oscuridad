@@ -188,7 +188,7 @@ PLANTILLA_HTML = """
     <div class="contenedor">
         <form action="/revelar" method="POST">
             <label style="color: #555; font-size: 12px; display: block; margin-bottom: 10px;">ELIGE LA TINTA (0 AL 5)</label>
-            <input type="number" name="numero_arcano" class="formulario-input" min="0" max="5" required autofocus>
+            <input type="number" name="numero_arcano" class="formulario-input" min="0" max="15" required autofocus>
             <br>
             <button type="submit" id="boton-form">ILUMINAR MENTE</button>
         </form>
