@@ -194,16 +194,16 @@ PLANTILLA_HTML = """
         body.iluminado .contenedor { border-color: #8b7355; }
         
         .formulario-input {
-            background: transparent;
-            border: 1px solid #444;
-            color: #a0a0a0;
-            padding: 10px;
+            background: rgba(20, 20, 30, 0.8); /* Un fondo gris oscuro semi-transparente para que resalte del cielo */
+            border: 1px solid #777; /* Borde más claro */
+            color: #e0e0e0; /* Letras casi blancas para que se lean perfecto */
+            padding: 12px;
             font-size: 18px;
             text-align: center;
             width: 80px;
             font-family: inherit;
             margin-bottom: 20px;
-            transition: all 2s ease;
+            transition: all 0.5s ease; /* Quité el 2s para que reaccione más rápido al hacer clic */
         }
         body.iluminado .formulario-input { border-color: #d4af37; color: #d4af37; }
         .formulario-input:focus { outline: none; border-color: #888; }
@@ -238,7 +238,7 @@ PLANTILLA_HTML = """
             <label style="color: #555; font-size: 12px; display: block; margin-bottom: 10px;">TU FECHA DE NACIMIENTO</label>
             <input type="date" name="fecha_nacimiento" class="formulario-input" style="width: 200px; color-scheme: dark;">
             
-            <div style="margin: 25px 0; color: #333; font-size: 11px; letter-spacing: 2px;">--- O BUSCA DIRECTAMENTE ---</div>
+            <div style="margin: 25px 0; color: #666; font-size: 12px; letter-spacing: 2px;">--- O ELIGE DIRECTAMENTE ---</div>
             
             <label style="color: #555; font-size: 12px; display: block; margin-bottom: 10px;">ELIGE LA TINTA (0 AL 21)</label>
             <input type="number" name="numero_arcano" class="formulario-input" min="0" max="21">
