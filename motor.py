@@ -30,6 +30,31 @@ IMAGENES_ARCANOS = {
     21: "https://abrepuertasespiritual.cl/cartas/21.png"
 }
 
+# FUNCIÓN DE NUMEROLOGÍA CABALÍSTICA
+def calcular_arcano_natal(fecha_str):
+    try:
+        # La fecha viene como 'YYYY-MM-DD' desde el input HTML
+        dia = int(fecha_str[8:10])
+        mes = int(fecha_str[5:7])
+        anio = int(fecha_str[0:4])
+
+        # Descomponemos y sumamos cada dígito
+        suma_total = sum(int(d) for d in str(dia))
+        suma_total += sum(int(d) for d in str(mes))
+        suma_total += sum(int(d) for d in str(anio))
+
+        # Reducimos hasta obtener un número entre 0 y 22
+        while suma_total > 22:
+            suma_total = sum(int(d) for d in str(suma_total))
+
+        # La ley del retorno: El 22 se convierte en el 0 (El Loco/El Infinito)
+        if suma_total == 22:
+            suma_total = 0
+
+        return str(suma_total) # Lo devolvemos como texto para la base de datos
+    except:
+        return None
+
 PLANTILLA_HTML = """
 <!DOCTYPE html>
 <html lang="es">
@@ -197,12 +222,16 @@ PLANTILLA_HTML = """
     <div class="flecha-indicadora">↓</div>
 
     <div class="contenedor">
-        <form action="/revelar" method="POST">
+           <form action="/revelar" method="POST">
+            <label style="color: #555; font-size: 12px; display: block; margin-bottom: 10px;">TU FECHA DE NACIMIENTO</label>
+            <input type="date" name="fecha_nacimiento" class="formulario-input" style="width: 200px; color-scheme: dark;">
+            
+            <div style="margin: 25px 0; color: #333; font-size: 11px; letter-spacing: 2px;">--- O BUSCA DIRECTAMENTE ---</div>
+            
             <label style="color: #555; font-size: 12px; display: block; margin-bottom: 10px;">ELIGE LA TINTA (0 AL 21)</label>
-            <input type="number" name="numero_arcano" class="formulario-input" min="0" max="21" required autofocus>
-            <br>
+            <input type="number" name="numero_arcano" class="formulario-input" min="0" max="21">
+            <br><br>
             <button type="submit" id="boton-form">ILUMINAR MENTE</button>
-
         </form>
 
         {% if error %}
@@ -306,10 +335,23 @@ def revelar_arcano():
     error = None
     mecanismo = sombra = tikkun = nombre_arcano = imagen_url = None
 
-    try:
-        numero = request.form['numero_arcano']
-        
-        conexion = get_db_connection()
+     try:
+        # Capturamos lo que venga del formulario
+        fecha = request.form.get('fecha_nacimiento')
+        numero_manual = request.form.get('numero_arcano')
+
+        # Lógica de decisión: Si hay fecha, calculamos. Si no, usamos el manual.
+        if fecha:
+            numero = calcular_arcano_natal(fecha)
+            if numero is None:
+                error = "La fecha parece estar rota en el tejido del tiempo."
+        elif numero_manual:
+            numero = numero_manual
+        else:
+            error = "Debes ingresar tu fecha o elegir un número."
+
+        if not error:
+            conexion = get_db_connection()
         cursor = conexion.cursor()
         cursor.execute("SELECT nombre, mecanismo_cosmico, sombra_klipa, tikkun_accion FROM arcanos WHERE numero = %s;", (numero,))
         resultado = cursor.fetchone()
