@@ -16,7 +16,7 @@ IMAGENES_ARCANOS = {
     7: "https://abrepuertasespiritual.cl/cartas/7.png",
     8: "https://abrepuertasespiritual.cl/cartas/8.png",
     9: "https://abrepuertasespiritual.cl/cartas/9.png",
-    10: "https://abrepuertasespitual.cl/cartas/10.png",
+    10: "https://abrepuertasespiritual.cl/cartas/10.png",
     11: "https://abrepuertasespiritual.cl/cartas/11.png",
     12: "https://abrepuertasespiritual.cl/cartas/12.png",
     13: "https://abrepuertasespiritual.cl/cartas/13.png",
