@@ -66,8 +66,8 @@ PLANTILLA_HTML = """
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta property="og:title" content="Oráculo de Clara Oscuridad | Cábala y Tarot" />
-    <meta property="og:description" content="Descubre tu carta de nacimiento a través de la Numerología Cabalística. Tinta negra en papel oscuro." />
+     <meta property="og:title" content="Oráculo de Clara Oscuridad" />
+    <meta property="og:description" content="Tu esencia oculta revelada a través de la Cábala y el Tarot." />
     <meta property="og:image" content="https://abrepuertasespiritual.cl/cartas/0.png" />
     <meta property="og:url" content="https://oraculo.abrepuertasespiritual.cl" />
     <meta property="og:type" content="website" />
