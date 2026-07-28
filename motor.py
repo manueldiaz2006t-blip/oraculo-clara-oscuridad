@@ -335,7 +335,7 @@ def revelar_arcano():
     error = None
     mecanismo = sombra = tikkun = nombre_arcano = imagen_url = None
 
-     try:
+    try:
         # Capturamos lo que venga del formulario
         fecha = request.form.get('fecha_nacimiento')
         numero_manual = request.form.get('numero_arcano')
@@ -352,20 +352,20 @@ def revelar_arcano():
 
         if not error:
             conexion = get_db_connection()
-        cursor = conexion.cursor()
-        cursor.execute("SELECT nombre, mecanismo_cosmico, sombra_klipa, tikkun_accion FROM arcanos WHERE numero = %s;", (numero,))
-        resultado = cursor.fetchone()
-        cursor.close()
-        conexion.close()
+            cursor = conexion.cursor()
+            cursor.execute("SELECT nombre, mecanismo_cosmico, sombra_klipa, tikkun_accion FROM arcanos WHERE numero = %s;", (numero,))
+            resultado = cursor.fetchone()
+            cursor.close()
+            conexion.close()
 
-        if resultado:
-            nombre_arcano = resultado[0]
-            mecanismo = resultado[1]
-            sombra = resultado[2]
-            tikkun = resultado[3]
-            imagen_url = IMAGENES_ARCANOS.get(int(numero), "")
-        else:
-            error = "Esa tinta aún no ha sido mezclada en la oscuridad. Elige un número del 0 al 21."
+            if resultado:
+                nombre_arcano = resultado[0]
+                mecanismo = resultado[1]
+                sombra = resultado[2]
+                tikkun = resultado[3]
+                imagen_url = IMAGENES_ARCANOS.get(int(numero), "")
+            else:
+                error = "Esa tinta aún no ha sido mezclada en la oscuridad. Elige un número del 0 al 21."
 
     except Exception as e:
         error = f"Error en la matrix: {e}"
