@@ -30,13 +30,20 @@ IMAGENES_ARCANOS = {
     21: "https://abrepuertasespiritual.cl/cartas/21.png"
 }
 
-# FUNCIÓN DE NUMEROLOGÍA CABALÍSTICA
+# FUNCIÓN DE NUMEROLOGÍA CABALÍSTICA (Versión bilingüe)
 def calcular_arcano_natal(fecha_str):
     try:
-        # La fecha viene como 'YYYY-MM-DD' desde el input HTML
-        dia = int(fecha_str[8:10])
-        mes = int(fecha_str[5:7])
-        anio = int(fecha_str[0:4])
+        # Detectamos si viene en formato dd-mm-aaaa (español) o aaaa-mm-dd (inglés)
+        if fecha_str[2] == '-': 
+            # Formato Español: dd-mm-aaaa
+            dia = int(fecha_str[0:2])
+            mes = int(fecha_str[3:5])
+            anio = int(fecha_str[6:10])
+        else: 
+            # Formato Inglés estándar: aaaa-mm-dd
+            dia = int(fecha_str[8:10])
+            mes = int(fecha_str[5:7])
+            anio = int(fecha_str[0:4])
 
         # Descomponemos y sumamos cada dígito
         suma_total = sum(int(d) for d in str(dia))
@@ -47,11 +54,11 @@ def calcular_arcano_natal(fecha_str):
         while suma_total > 22:
             suma_total = sum(int(d) for d in str(suma_total))
 
-        # La ley del retorno: El 22 se convierte en el 0 (El Loco/El Infinito)
+        # La ley del retorno: El 22 se convierte en el 0
         if suma_total == 22:
             suma_total = 0
 
-        return str(suma_total) # Lo devolvemos como texto para la base de datos
+        return str(suma_total) 
     except:
         return None
 
