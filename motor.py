@@ -16,12 +16,18 @@ IMAGENES_ARCANOS = {
     7: "https://abrepuertasespiritual.cl/cartas/7.png",
     8: "https://abrepuertasespiritual.cl/cartas/8.png",
     9: "https://abrepuertasespiritual.cl/cartas/9.png",
-    10: "https://abrepuertasespiritual.cl/cartas/10.png",
+    10: "https://abrepuertasespitual.cl/cartas/10.png",
     11: "https://abrepuertasespiritual.cl/cartas/11.png",
     12: "https://abrepuertasespiritual.cl/cartas/12.png",
     13: "https://abrepuertasespiritual.cl/cartas/13.png",
     14: "https://abrepuertasespiritual.cl/cartas/14.png",
-    15: "https://abrepuertasespiritual.cl/cartas/15.png"
+    15: "https://abrepuertasespiritual.cl/cartas/15.png",
+    16: "https://abrepuertasespiritual.cl/cartas/16.png",
+    17: "https://abrepuertasespiritual.cl/cartas/17.png",
+    18: "https://abrepuertasespiritual.cl/cartas/18.png",
+    19: "https://abrepuertasespiritual.cl/cartas/19.png",
+    20: "https://abrepuertasespiritual.cl/cartas/20.png",
+    21: "https://abrepuertasespiritual.cl/cartas/21.png"
 }
 
 PLANTILLA_HTML = """
@@ -192,10 +198,11 @@ PLANTILLA_HTML = """
 
     <div class="contenedor">
         <form action="/revelar" method="POST">
-            <label style="color: #555; font-size: 12px; display: block; margin-bottom: 10px;">ELIGE LA TINTA (0 AL 15)</label>
-            <input type="number" name="numero_arcano" class="formulario-input" min="0" max="5" required autofocus>
+            <label style="color: #555; font-size: 12px; display: block; margin-bottom: 10px;">ELIGE LA TINTA (0 AL 21)</label>
+            <input type="number" name="numero_arcano" class="formulario-input" min="0" max="21" required autofocus>
             <br>
             <button type="submit" id="boton-form">ILUMINAR MENTE</button>
+
         </form>
 
         {% if error %}
@@ -268,7 +275,18 @@ def inicializar_base_de_datos():
     (7, 'El Carro', 'Es la energía de Netzaj (La Victoria). Es la fuerza de voluntad pura en movimiento. Es el carro de guerra que penetra el caos para imponer el orden del espíritu.', 'La agresión desmedida y el autoritarismo. Forzar situaciones cuando el timing no es correcto. Avanzar por pura fuerza bruta aplastando a los demás.', 'Artifica el avance: Toma acción directa sobre algo que has estado postergando. Pero hazlo con el control del Emperador, no con la furia del tirano.'),
     (8, 'La Justicia', 'Es el equilibrio exacto entre las fuerzas de Netzaj y Hod. Es la ley de causa y efecto (Karma) manifestada. Es la espada de la verdad que corta la ilusión.', 'El legalismo frío y la falta de compasión. Juzgar a otros con dureza para proyectar tus propias sombras.', 'Artifica el equilibrio: Perdona una deuda literal o emocional hoy. Suelta la necesidad de tener la razón.'),
     (9, 'El Ermitaño', 'Es la energía de Yesod (El Fundamento) llevada hacia adentro. Es la luz interna que no necesita el sol externo. Es la sabiduría del silencio.', 'El aislamiento por miedo o misantropía. La arrogancia espiritual de creerse iluminado y superior al mundo material.', 'Artifica el retiro: Apaga tu teléfono durante 30 minutos. Siéntate en silencio absoluto. No medites, solo escucha la voz de tu oscuridad.'),
-    (10, 'La Rueda de la Fortuna', 'Es la energy de Malkuth (El Reino) interactuando con el eje central del universo. Representa el ciclo eterno: lo que sube debe bajar.', 'La resistencia al cambio. Aferrarse al pico del éxito o deprimirse en el valle del fracaso, olvidando que la rueda siempre gira.', 'Artifica la fluidez: Acepta un cambio de planes repentino hoy sin quejarte. Fluye con la rueda como el agua.')
+    (10, 'La Rueda de la Fortuna', 'Es la energy de Malkuth (El Reino) interactuando con el eje central del universo. Representa el ciclo eterno: lo que sube debe bajar.', 'La resistencia al cambio. Aferrarse al pico del éxito o deprimirse en el valle del fracaso, olvidando que la rueda siempre gira.', 'Artifica la fluidez: Acepta un cambio de planes repentino hoy sin quejarte. Fluye con la rueda como el agua.'),
+    (11, 'La Fuerza', 'Es el dominio absoluto de las bajas pasiones mediante el amor y la voluntad pura. No es fuerza física, es la energía de Geburah domada por la gracia de Chesed.', 'La represión de la ira que explota en violencia. El complejo de mártir que soporta situaciones abusivas creyendo que es "resistir".', 'Artifica la doma: Hoy, sonríele a una situación o a una persona que te saca de tus casillas. No te defiendas, usa la suavidad para desarmar la tensión.'),
+    (12, 'El Colgado', 'Es la paralización voluntaria. Es el acto de rendirse para ganar una perspectiva superior. Es la energía de Neptune disolviendo el ego para ver el mundo al revés.', 'El victimismo estancado. Sacrificarte por los demás esperando reconocimiento. Resistirte al cambio necesario por comodidad o miedo al vacío.', 'Artifica la rendición: Hoy, suspende tu juicio sobre un problema que te angustia. No intentes solucionarlo. Simplemente míralo desde otro ángulo, aceptando la pausa.'),
+    (13, 'La Muerte', 'La gran ilusión humana es que las cosas son permanentes. Este arcano es la Shevirat HaKelim (Ruptura de Vasijas). Es el fuego purificador que elimina lo innecesario para que nazca lo nuevo.', 'El terror a perder el estatus, la juventud o los bienes. Aferrarse a relaciones o trabajos que ya están muertos, evitando la transformación.', 'Artifica el desapego: Botar algo físico hoy (ropa, papeles, un objeto roto). Siente cómo el espacio vacío creado por ese objeto te permite respirar mejor.'),
+    (14, 'La Templanza', 'Es la alquimia interna. La mezcla perfecta de los opuestos (consciente/inconsciente, masculino/femenino) dentro del cáliz del alma. Es el angel de Tiferet curando las heridas.', 'Falta de autenticidad. Ser una masa amorfa que adapta su personalidad a quien sea que esté presente. Dilución de los propios talentos.', 'Artifica la mezcla: Une dos cosas que no creías compatibles hoy. Come algo dulce con algo salado, o intenta reconciliar a dos personas con opiniones opuestas.'),
+    (15, 'El Diablo', 'La mayor trampa de la creación material: creer que la oscuridad es un poder independiente. Este arcano representa las Klipot (cáscaras) y la ilusión de la escasez y la materialidad extrema.', 'La adicción (a sustancias, a personas, a la pornografía, al drama). Vender tu alma por placeres inmediatos. La lujuria desenfrenada sin conexión emocional.', 'Artifica la liberación: Identifica un hábito tóxico pequeño del que eres esclavo hoy (revisar el celular cada 5 min, quejarte, fumar) y rompe la cadena conscientemente al menos por una hora.'),
+    (16, 'La Torre', 'El rayo de Zeus (Kether) destruyendo la cima de la torre del ego humano. Cuando las estructuras falsas se mantienen demasiado tiempo, el universo envía este arcano para demolerlas por la fuerza.', 'Negarse a ver el desastre inminente. Construir castillos en el aire. El shock paralizante cuando la realidad finalmente derrumba tus ilusiones.', 'Artifica la demolición: Reconoce una mentira que te estás contando a ti mismo hace meses y derríbala tú mismo hoy. Es mejor demoler tu propia torre que esperar al rayo.'),
+    (17, 'La Estrella', 'Después de la Torre, llega el silencio curativo. Es la energía de Yesod en su aspecto más puro: el subconsciente universal vertiendo aguas sanadoras sobre la humanidad herida.', 'Desilusión nihilista. Perder la fe después de una crisis, creyendo que no hay salida ni esperanza en el universo.', 'Artifica la esperanza: Sal a mirar el cielo nocturno por un minuto. No pidas nada, solo permite que la inmensidad del cosmos te recuerde que tus problemas son polvo de estrellas.'),
+    (18, 'La Luna', 'El lado oscuro de Yesod. Es la mente profunda llena de sombras, miedos irracionales e ilusiones. Es el camino psíquico que debes cruzar antes del amanecer.', 'La paranoia, las pesadillas y la ansiedad flotante. Engañarse a sí mismo proyectando miedos internos en el mundo exterior.', 'Artifica la navegación en la oscuridad: Camina por tu casa a oscuras (con cuidado) o cierra los ojos mientras lavas los platos. Acostúmbrate a funcionar sin depender de los ojos físicos.'),
+    (19, 'El Sol', 'La resurrección de Osiris. Es Tiferet en su máximo esplendor. El éxito puro, la vitalidad desbordante y la claridad mental absoluta donde el niño interno juega sin miedo.', 'El ego inflado. La arrogancia de creer que el éxito es solo mérito tuyo, olvidando la conexión divina. Quemar a los demás con tu "luz".', 'Artifica la vitalidad: Haz algo puramente lúdico hoy. Canta en la ducha, dibuja algo, o salta. Devuélvele al niño que fuiste el derecho a expresar alegría sin motivo.'),
+    (20, 'El Juicio', 'La llamada del Shofar que despierta a los muertos. Es la energía de Pluto resucitando las partes muertas de tu psique para que asciendan a Malkuth y se integren.', 'La culpa paralizante del pasado. Escuchar la llamada al despertar pero negarse a levantarse por miedo al juicio de los demás.', 'Artifica el perdón: Perdónate a ti mismo por un error que llevas años arrastrando. Cierra los ojos y dile a tu alma: "Estás perdonado, es hora de volver a la vida".'),
+    (21, 'El Mundo', 'El ciclo completo cumplido. Es Malkuth integrando todas las Sefirot. El bailarín rodeado por el laurel representa la maestría absoluta del plano material sin perder la conexión con lo divino.', 'El estancamiento final. Creer que ya "llegaste" y detener el crecimiento. El perfeccionismo que no te permite disfrutar del presente.', 'Artifica la integración: Mira hacia atrás a todo lo que construiste este mes (este sistema, tu vida) y dite a ti mismo: "Está bien. Es suficiente". Celebra el cierre del ciclo.')
     ON CONFLICT (numero) DO NOTHING;
     """)
     conn.commit()
@@ -305,7 +323,7 @@ def revelar_arcano():
             tikkun = resultado[3]
             imagen_url = IMAGENES_ARCANOS.get(int(numero), "")
         else:
-            error = "Esa tinta aún no ha sido mezclada en la oscuridad. Elige un número del 0 al 15."
+            error = "Esa tinta aún no ha sido mezclada en la oscuridad. Elige un número del 0 al 21."
 
     except Exception as e:
         error = f"Error en la matrix: {e}"
